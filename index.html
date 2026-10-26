@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>محمد أمين | مونتير فيديوهات قصيرة</title>
+  <!-- Google Fonts: Cairo for Arabic, Poppins for English & Digits -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0d0d0f;
+      --bg-card: #151519;
+      --accent: #ea9300;
+      --accent-glow: rgba(234, 147, 0, 0.22);
+      --text-main: #ffffff;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Cairo', 'Poppins', sans-serif;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    html[lang="en"] body {
+      font-family: 'Poppins', 'Cairo', sans-serif;
+    }
+
+    /* Fluid Water-Like Mouse-Tracking Backdrop / Layer */
+    #liquid-backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      filter: blur(65px);
+    }
+
+    .liquid-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      will-change: transform;
+      mix-blend-mode: screen;
+    }
+
+    .orb-primary {
+      width: 560px;
+      height: 560px;
+      margin-left: -280px;
+      margin-top: -280px;
+      background: radial-gradient(circle, rgba(234, 147, 0, 0.16) 0%, rgba(234, 147, 0, 0.05) 45%, transparent 72%);
+    }
+
+    .orb-secondary {
+      width: 720px;
+      height: 720px;
+      margin-left: -360px;
+      margin-top: -360px;
+      background: radial-gradient(circle, rgba(234, 147, 0, 0.1) 0%, rgba(255, 180, 50, 0.035) 50%, transparent 75%);
+    }
+
+    .orb-ripple {
+      width: 420px;
+      height: 420px;
+      margin-left: -210px;
+      margin-top: -210px;
+      background: radial-gradient(circle, rgba(255, 195, 80, 0.11) 0%, transparent 68%);
+    }
+
+    /* Ambient Hero Backlight */
+    .ambient-glow {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 540px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(234, 147, 0, 0.13) 0%, transparent 72%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(13, 13, 15, 0.75);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .lang-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: var(--text-main);
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      font-family: 'Poppins', 'Cairo', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .lang-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: var(--accent);
+      transition: stroke 0.25s ease;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--accent);
+      background: rgba(234, 147, 0, 0.12);
+    }
+
+    .cta-nav {
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      padding: 0.48rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: all 0.25s ease;
+    }
+
+    .cta-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(234, 147, 0, 0.38);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6.75rem 1.25rem 3.25rem;
+      text-align: center;
+      overflow: hidden;
+      max-width: 1020px;
+      margin: 0 auto;
+    }
+
+    /* Circular Avatar Group (Reference 2 Style) */
+    .hero-avatar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 1.4rem;
+      z-index: 3;
+    }
+
+    .avatar-circle {
+      position: relative;
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 30%, #2c2c35 0%, #141418 100%);
+      border: 2px solid rgba(234, 147, 0, 0.6);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.7), 0 0 28px rgba(234, 147, 0, 0.15);
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+    }
+
+    .avatar-circle:hover {
+      transform: scale(1.04);
+      border-color: var(--accent);
+    }
+
+    .avatar-circle img {
+      width: 112%;
+      height: 112%;
+      object-fit: cover;
+      object-position: top center;
+      transform: translateY(4px);
+    }
+
+    .hero-greeting {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+      padding: 0.35rem 1.05rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .hero-role-sub {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      margin-top: -0.2rem;
+    }
+
+    .status-dot-inline {
+      width: 7px;
+      height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(234, 147, 0, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(234, 147, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(234, 147, 0, 0); }
+    }
+
+    /* Refined Editorial Hero Headline (Reference 2 Inspired) */
+    .hero-main-title {
+      font-size: clamp(2.3rem, 5.2vw, 4.1rem);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      margin-bottom: 1.15rem;
+      max-width: 880px;
+      z-index: 3;
+    }
+
+    .hero-sub {
+      max-width: 620px;
+      font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      z-index: 3;
+    }
+
+    .hero-sub strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Primary & Secondary Hero Action Buttons */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.95rem;
+      margin-bottom: 2.85rem;
+      z-index: 3;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero-primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 0.8rem 1.9rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px rgba(234, 147, 0, 0.28);
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(234, 147, 0, 0.42);
+    }
+
+    .btn-hero-secondary {
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.8rem 1.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .btn-hero-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Elevated Authority Showcase: Prominent Experience + Authentic Adobe Suite Tiles */
+    .hero-authority-grid {
+      display: grid;
+      grid-template-columns: auto 1px auto;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 1.4rem 2.5rem;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(24, 24, 30, 0.85) 0%, rgba(16, 16, 20, 0.92) 100%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55);
+      z-index: 3;
+    }
+
+    /* Prominent Experience Block */
+    .exp-showcase {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      text-align: start;
+    }
+
+    .exp-number-box {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.4rem, 3.8vw, 3.1rem);
+      font-weight: 900;
+      line-height: 1;
+      color: #ffffff;
+      letter-spacing: -1.5px;
+      direction: ltr;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .exp-number-box span {
+      color: var(--accent);
+      margin-right: 2px;
+    }
+
+    .exp-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+    }
+
+    .exp-title {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .exp-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .authority-divider {
+      width: 1px;
+      height: 54px;
+      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+    }
+
+    /* Authentic Adobe Suite Cards */
+    .tools-showcase {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.6rem;
+    }
+
+    .tools-heading {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .adobe-cards-row {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .adobe-tool-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.45rem 0.9rem 0.45rem 0.5rem;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+      direction: ltr;
+    }
+
+    .adobe-tool-pill:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .adobe-svg-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: block;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .adobe-tool-info {
+      text-align: left;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .adobe-tool-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    /* Dominant Premium Case Study Banner */
+    .case-study-section {
+      position: relative;
+      z-index: 3;
+      max-width: 980px;
+      margin: 0 auto 3.5rem;
+      padding: 0 1.25rem;
+    }
+
+    .case-study-banner {
+      position: relative;
+      padding: 2.1rem 2.4rem;
+      border-radius: 24px;
+      background: radial-gradient(circle at top right, rgba(234, 147, 0, 0.2), rgba(21, 21, 25, 0.96) 65%);
+      border: 1.5px solid rgba(234, 147, 0, 0.55);
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(234, 147, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .case-study-banner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    .case-study-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .case-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #000;
+      background: var(--accent);
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 4px 14px rgba(234, 147, 0, 0.35);
+    }
+
+    .case-study-text h3 {
+      font-size: clamp(1.35rem, 2.5vw, 1.95rem);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 0.65rem;
+      color: #ffffff;
+    }
+
+    .case-study-text h3 span {
+      color: var(--accent);
+    }
+
+    .case-study-text p {
+      color: #d1d5db;
+      font-size: 0.94rem;
+      line-height: 1.65;
+    }
+
+    .case-metrics {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 0.9rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .metric-box {
+      flex: 1;
+      background: rgba(10, 10, 13, 0.75);
+      padding: 1.25rem 1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .metric-box.highlight {
+      background: rgba(234, 147, 0, 0.12);
+      border: 2px solid var(--accent);
+      box-shadow: 0 0 28px rgba(234, 147, 0, 0.22);
+      transform: scale(1.03);
+    }
+
+    .metric-val {
+      font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.3rem;
+    }
+
+    .metric-box.highlight .metric-val {
+      color: var(--accent);
+    }
+
+    .metric-caption {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .metric-box.highlight .metric-caption {
+      color: #ffffff;
+    }
+
+    .metric-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--accent);
+      font-weight: 900;
+      transition: transform 0.3s ease;
+    }
+
+    html[dir="rtl"] .metric-arrow svg {
+      transform: scaleX(-1);
+    }
+
+    /* Portfolio Section */
+    .section {
+      position: relative;
+      z-index: 2;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3.5rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.25rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 900;
+      margin-bottom: 0.35rem;
+    }
+
+    .section-header h2 span {
+      color: var(--accent);
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* 9:16 Video Grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 1.4rem;
+    }
+
+    .video-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(234, 147, 0, 0.6);
+      box-shadow: 0 16px 35px rgba(234, 147, 0, 0.12);
+    }
+
+    .video-frame-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #0b0b0e;
+      overflow: hidden;
+    }
+
+    .video-frame-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Instant Video Thumbnail Façade */
+    .video-facade {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 35%, rgba(234, 147, 0, 0.16), #09090c 75%);
+      overflow: hidden;
+    }
+
+    .video-thumb-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+      filter: brightness(0.88) contrast(1.04);
+    }
+
+    .video-card:hover .video-thumb-img {
+      transform: scale(1.05);
+      filter: brightness(1);
+    }
+
+    .video-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.82) 100%);
+      pointer-events: none;
+    }
+
+    .play-btn-circle {
+      position: relative;
+      z-index: 3;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(234, 147, 0, 0.92);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(234, 147, 0, 0.45), 0 0 0 6px rgba(234, 147, 0, 0.16);
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .video-card:hover .play-btn-circle {
+      transform: scale(1.1);
+      background: #ffffff;
+      box-shadow: 0 14px 34px rgba(255, 255, 255, 0.35), 0 0 0 8px rgba(234, 147, 0, 0.25);
+    }
+
+    .play-btn-circle svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      margin-left: 3px;
+    }
+
+    .thumb-preview-badge {
+      position: absolute;
+      bottom: 0.95rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      background: rgba(13, 13, 15, 0.78);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e5e7eb;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .video-info {
+      padding: 0.95rem 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .video-title {
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .video-stat {
+      font-family: 'Cairo', 'Poppins', sans-serif;
+      background: rgba(234, 147, 0, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(234, 147, 0, 0.35);
+      padding: 0.32rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Contact Section */
+    .contact-card {
+      background: linear-gradient(180deg, #17171c 0%, #101014 100%);
+      border: 1px solid rgba(234, 147, 0, 0.3);
+      border-radius: 24px;
+      padding: 2.75rem 1.75rem;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .contact-card h2 {
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+      font-weight: 900;
+      margin-bottom: 0.65rem;
+    }
+
+    .contact-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.85rem;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .contact-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.88rem 1.5rem;
+      border-radius: 12px;
+      font-family: 'Cairo', 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .ltr-num {
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+    }
+
+    .contact-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .btn-whatsapp {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(234, 147, 0, 0.4);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        padding-top: 5.75rem;
+      }
+      .hero-authority-grid {
+        grid-template-columns: 1fr;
+        gap: 1.35rem;
+        padding: 1.35rem 1.5rem;
+        text-align: center;
+      }
+      .exp-showcase {
+        justify-content: center;
+      }
+      .authority-divider {
+        width: 100%;
+        height: 1px;
+      }
+      .tools-showcase {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.65rem;
+      }
+      .adobe-cards-row {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .case-study-banner {
+        grid-template-columns: 1fr;
+        padding: 1.75rem 1.25rem;
+        text-align: center;
+      }
+      .case-study-text {
+        align-items: center;
+      }
+      .case-metrics {
+        flex-direction: column;
+        align-items: center;
+      }
+      .metric-arrow svg {
+        transform: rotate(90deg) !important;
+      }
+      .metric-box {
+        width: 100%;
+      }
+      .metric-box.highlight {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Smooth Water-Like Multi-Layered Liquid Spotlight -->
+  <div id="liquid-backdrop">
+    <div class="liquid-orb orb-secondary" id="orbSecondary"></div>
+    <div class="liquid-orb orb-primary" id="orbPrimary"></div>
+    <div class="liquid-orb orb-ripple" id="orbRipple"></div>
+  </div>
+  <div class="ambient-glow"></div>
+
+  <!-- Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <span class="brand-dot"></span>
+        <span data-ar="محمد أمين" data-en="MOHAMED AMINE">محمد أمين</span>
+      </a>
+      <div class="nav-actions">
+        <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="langLabel">English</span>
+        </button>
+        <a href="#contact" class="cta-nav" data-ar="تواصل معي" data-en="Hire Me">تواصل معي</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Circular Portrait, Name & Small Subtitle Underneath -->
+    <div class="hero-avatar-group">
+      <div class="avatar-circle">
+        <img src="https://i.imgur.com/OxFA4od.png" alt="Mohamed Amine - Short Form Video Editor" />
+      </div>
+      <div class="hero-greeting">
+        <span class="status-dot-inline"></span>
+        <span data-ar="أهلاً، أنا محمد أمين" data-en="Hi, I'm Mohamed Amine">أهلاً، أنا محمد أمين</span>
+      </div>
+      <div class="hero-role-sub" data-ar="مونتير فيديو احترافي" data-en="Professional Video Editor">مونتير فيديو احترافي</div>
+    </div>
+
+    <!-- Big Orange Main Title Underneath -->
+    <h1 class="hero-main-title" data-ar="أحول المقاطع إلى تحف بصرية" data-en="Turning Clips into Masterpieces">
+      أحول المقاطع إلى تحف بصرية
+    </h1>
+
+    <!-- Concise Value Proposition -->
+    <p class="hero-sub" data-ar="أصنع فيديوهات قصيرة <strong>(Reels, Shorts, TikTok)</strong> بمعايير سينمائية وإيقاع مدروس يرفع معدل الاحتفاظ بالمشاهد ويضاعف الانتشار الطبيعي." data-en="I craft high-retention <strong>Reels, TikToks, and Shorts</strong> with precision pacing, immersive sound design, and visual storytelling built to scale organic reach.">
+      أصنع فيديوهات قصيرة <strong>(Reels, Shorts, TikTok)</strong> بمعايير سينمائية وإيقاع مدروس يرفع معدل الاحتفاظ بالمشاهد ويضاعف الانتشار الطبيعي.
+    </p>
+
+    <!-- Balanced Call-to-Action Buttons -->
+    <div class="hero-actions">
+      <a href="#contact" class="btn-hero-primary" data-ar="ابدأ مشروعك الآن" data-en="Let's Talk">ابدأ مشروعك الآن</a>
+      <a href="#work" class="btn-hero-secondary" data-ar="معرض الأعمال" data-en="View Portfolio">معرض الأعمال</a>
+    </div>
+
+    <!-- Prominent Experience & Authentic Adobe Icons Bar -->
+    <div class="hero-authority-grid">
+      <!-- Highlighted +2 Years Experience -->
+      <div class="exp-showcase">
+        <div class="exp-number-box"><span>+</span>2</div>
+        <div class="exp-meta">
+          <div class="exp-title" data-ar="سنوات من الخبرة العملية" data-en="Years of Experience">سنوات من الخبرة العملية</div>
+          <div class="exp-subtitle" data-ar="متخصص في صناعة الفيديوهات القصيرة" data-en="Specialized in Short-Form Editing">متخصص في صناعة الفيديوهات القصيرة</div>
+        </div>
+      </div>
+
+      <div class="authority-divider"></div>
+
+      <!-- Authentic Adobe Creative Cloud Badges (Names Only) -->
+      <div class="tools-showcase">
+        <span class="tools-heading" data-ar="البرامج المعتمدة" data-en="Primary Editing Suite">البرامج المعتمدة</span>
+        <div class="adobe-cards-row">
+          <!-- Adobe Premiere Pro SVG Tile -->
+          <div class="adobe-tool-pill">
+            <svg class="adobe-svg-icon" viewBox="0 0 240 234" xmlns="http://www.w3.org/2000/svg">
+              <rect width="240" height="234" rx="42.5" fill="#00005B"/>
+              <rect x="6" y="6" width="228" height="222" rx="37" fill="none" stroke="#9999FF" stroke-opacity="0.35" stroke-width="4"/>
+              <path d="M57 164V66.4c0-1.4.6-2.1 2-2.1 3.5-.2 8.7-.4 15.6-.5 6.9-.2 13.7-.3 20.5-.3 25.9 0 38.8 11.8 38.8 35.4 0 11.4-4 20.3-11.9 26.5-7.9 6.2-18.7 9.3-32.2 9.3-3.9 0-7.4-.1-10.4-.3v29.6c0 1.4-.6 2.1-1.9 2.1H59c-1.3 0-2-.7-2-2.1zm22.4-48.8c3.1.3 6.6.4 10.4.4 13.9 0 20.9-5.9 20.9-17.7 0-11-6.5-16.5-19.5-16.5-4.7 0-8.6.2-11.8.5v33.3zm71.6 48.8v-60c0-6.9-.2-13.2-.6-18.8-.1-1.2.4-1.9 1.6-2h17.9c1.1 0 1.8.6 2.1 1.7.6 2.7 1 5.9 1.2 9.5 3.1-4.1 6.8-7.3 11.1-9.6 4.3-2.3 9.2-3.5 14.7-3.5 1.3 0 2 .7 2 2.1v19.5c0 1.4-.8 2-2.4 1.8-1.8-.2-3.9-.3-6.2-.3-7.8 0-14 2.4-18.6 7.3v52.3c0 1.4-.7 2.1-2 2.1H153c-1.3 0-2-.7-2-2.1z" fill="#9999FF"/>
+            </svg>
+            <div class="adobe-tool-info">
+              <div class="adobe-tool-name">Premiere Pro</div>
+            </div>
+          </div>
+
+          <!-- Adobe After Effects SVG Tile -->
+          <div class="adobe-tool-pill">
+            <svg class="adobe-svg-icon" viewBox="0 0 240 234" xmlns="http://www.w3.org/2000/svg">
+              <rect width="240" height="234" rx="42.5" fill="#000033"/>
+              <rect x="6" y="6" width="228" height="222" rx="37" fill="none" stroke="#D499FF" stroke-opacity="0.35" stroke-width="4"/>
+              <path d="M62 164l12.8-34.8h40.4L128 164h19.8L108.5 66.4h-17L52 164H62zm21.9-50.6l13.6-37.4h.8l13.6 37.4H83.9zm70.4 50.6V123h32.7v10.5h-21v11h19.7v10.2h-19.7v9.3h21.9V164h-33.6z" fill="#D499FF"/>
+            </svg>
+            <div class="adobe-tool-info">
+              <div class="adobe-tool-name">After Effects</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dominant Case Study Section -->
+  <div class="case-study-section">
+    <div class="case-study-banner">
+      <div class="case-study-text">
+        <span class="case-tag" data-ar="نتائج حقيقية مثبتة" data-en="PROVEN CLIENT RESULTS">نتائج حقيقية مثبتة</span>
+        <h3 data-ar="قفزة نوعية في المشاهدات بنسبة <span style='color:var(--accent);'>1,200%</span>" data-en="Scaled Views By <span style='color:var(--accent);'>1,200%</span>">قفزة نوعية في المشاهدات بنسبة <span style="color:var(--accent);">1,200%</span></h3>
+        <p data-ar="من خلال إعادة هندسة الـ Hook البصري، ضبط الإيقاع، وتصميم الصوت الإبداعي، انتقل أحد عملائي من معدل 5 إلى 10 آلاف مشاهدة ليصل إلى أكثر من 120 ألف مشاهدة للمقطع الواحد." data-en="By re-engineering visual hooks, pacing, and immersive sound design, I scaled a client's baseline from 5K–10K views to breaking 120,000+ organic views.">
+          من خلال إعادة هندسة الـ Hook البصري، ضبط الإيقاع، وتصميم الصوت الإبداعي، انتقل أحد عملائي من معدل 5 إلى 10 آلاف مشاهدة ليصل إلى أكثر من 120 ألف مشاهدة للمقطع الواحد.
+        </p>
+      </div>
+
+      <div class="case-metrics">
+        <div class="metric-box">
+          <div class="metric-val">5K–10K</div>
+          <div class="metric-caption" data-ar="المشاهدات السابقة" data-en="Before">المشاهدات السابقة</div>
+        </div>
+        <div class="metric-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </div>
+        <div class="metric-box highlight">
+          <div class="metric-val">120K+</div>
+          <div class="metric-caption" data-ar="بعد المونتاج" data-en="After Editing">بعد المونتاج</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Portfolio Grid (With 00:03 Frame Thumbnails & Instant Click-to-Play) -->
+  <section class="section" id="work">
+    <div class="section-header">
+      <h2><span data-ar="نماذج" data-en="Selected">نماذج</span> <span data-ar="الأعمال المختارة" data-en="Works" style="color:#fff;">الأعمال المختارة</span></h2>
+      <p data-ar="اضغط على الصورة المصغرة لأي فيديو لتشغيله فوراً" data-en="Click any video thumbnail below to load and play the edit">اضغط على الصورة المصغرة لأي فيديو لتشغيله فوراً</p>
+    </div>
+
+    <div class="video-grid">
+      <!-- Video 1: حرمة الموسيقى (125k views) -->
+      <div class="video-card" data-drive-id="1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL">
+        <div class="video-frame-container">
+          <div class="video-facade" onclick="loadDriveVideo(this, '1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL')">
+            <img class="video-thumb-img" id="thumb-1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL" src="https://drive.google.com/thumbnail?id=1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL&sz=w1000" alt="حرمة الموسيقى" loading="lazy" />
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn-circle" aria-label="Play Video">
+              <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">حرمة الموسيقى</div>
+          <div class="video-stat" data-ar="125 ألف مشاهدة" data-en="125K Views">125 ألف مشاهدة</div>
+        </div>
+      </div>
+
+      <!-- Video 2: السب و اللعن (70k+ views) -->
+      <div class="video-card" data-drive-id="1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL">
+        <div class="video-frame-container">
+          <div class="video-facade" onclick="loadDriveVideo(this, '1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL')">
+            <img class="video-thumb-img" id="thumb-1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL" src="https://drive.google.com/thumbnail?id=1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL&sz=w1000" alt="السب و اللعن" loading="lazy" />
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn-circle" aria-label="Play Video">
+              <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">السب و اللعن</div>
+          <div class="video-stat" data-ar="+70 ألف مشاهدة" data-en="70K+ Views">+70 ألف مشاهدة</div>
+        </div>
+      </div>
+
+      <!-- Video 3: المسلسلات (20k+ views) -->
+      <div class="video-card" data-drive-id="1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK">
+        <div class="video-frame-container">
+          <div class="video-facade" onclick="loadDriveVideo(this, '1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK')">
+            <img class="video-thumb-img" id="thumb-1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK" src="https://drive.google.com/thumbnail?id=1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK&sz=w1000" alt="المسلسلات" loading="lazy" />
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn-circle" aria-label="Play Video">
+              <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">المسلسلات</div>
+          <div class="video-stat" data-ar="+20 ألف مشاهدة" data-en="20K+ Views">+20 ألف مشاهدة</div>
+        </div>
+      </div>
+
+      <!-- Video 4: اختارك الله (18k views) -->
+      <div class="video-card" data-drive-id="1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp">
+        <div class="video-frame-container">
+          <div class="video-facade" onclick="loadDriveVideo(this, '1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp')">
+            <img class="video-thumb-img" id="thumb-1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp" src="https://drive.google.com/thumbnail?id=1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp&sz=w1000" alt="اختارك الله" loading="lazy" />
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn-circle" aria-label="Play Video">
+              <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">اختارك الله</div>
+          <div class="video-stat" data-ar="18 ألف مشاهدة" data-en="18K Views">18 ألف مشاهدة</div>
+        </div>
+      </div>
+
+      <!-- Video 5: الدين نقل (17k views) -->
+      <div class="video-card" data-drive-id="1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF">
+        <div class="video-frame-container">
+          <div class="video-facade" onclick="loadDriveVideo(this, '1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF')">
+            <img class="video-thumb-img" id="thumb-1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF" src="https://drive.google.com/thumbnail?id=1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF&sz=w1000" alt="الدين نقل" loading="lazy" />
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn-circle" aria-label="Play Video">
+              <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">الدين نقل</div>
+          <div class="video-stat" data-ar="17 ألف مشاهدة" data-en="17K Views">17 ألف مشاهدة</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="contact-card">
+      <h2 data-ar="هل أنت مستعد للارتقاء بجودة محتواك؟" data-en="Ready to Elevate Your Content?">هل أنت مستعد للارتقاء بجودة محتواك؟</h2>
+      <p data-ar="تواصل معي مباشرة لمناقشة تفاصيل مشروعك القادم وصناعة مقاطع تحقق نتائج ملموسة." data-en="Reach out directly via WhatsApp, Instagram, or Email to discuss your next project.">
+        تواصل معي مباشرة لمناقشة تفاصيل مشروعك القادم وصناعة مقاطع تحقق نتائج ملموسة.
+      </p>
+
+      <div class="contact-grid">
+        <a href="https://wa.me/212675380218" target="_blank" rel="noopener" class="contact-btn btn-whatsapp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+          <span data-ar="واتساب: <span class='ltr-num'>+212 675-380218</span>" data-en="WhatsApp: <span class='ltr-num'>+212 675-380218</span>">واتساب: <span class="ltr-num">+212 675-380218</span></span>
+        </a>
+        <a href="https://instagram.com/amine.design11" target="_blank" rel="noopener" class="contact-btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          <span class="ltr-num">@amine.design11</span>
+        </a>
+        <a href="mailto:mohamedamine.tantane1@gmail.com" class="contact-btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span class="ltr-num">mohamedamine.tantane1@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p data-ar="© 2026 محمد أمين — مونتير فيديوهات قصيرة احترافي." data-en="© 2026 Mohamed Amine — Professional Short-Form Video Editor.">© 2026 محمد أمين — مونتير فيديوهات قصيرة احترافي.</p>
+  </footer>
+
+  <script>
+    // On-Demand Google Drive Video Player Loader (Fast Thumbnail First)
+    function loadDriveVideo(facadeEl, fileId) {
+      const container = facadeEl.parentElement;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+      iframe.allow = 'autoplay; encrypted-media';
+      iframe.allowFullscreen = true;
+      container.innerHTML = '';
+      container.appendChild(iframe);
+    }
+
+    // Attempt to seek to 00:03.00 and capture frame if direct video stream permits CORS
+    function captureThirdSecondFrames() {
+      const driveIds = [
+        '1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL',
+        '1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL',
+        '1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK',
+        '1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp',
+        '1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF'
+      ];
+
+      driveIds.forEach((id) => {
+        const video = document.createElement('video');
+        video.crossOrigin = 'anonymous';
+        video.muted = true;
+        video.preload = 'metadata';
+        video.playsInline = true;
+        video.src = `https://drive.google.com/uc?export=download&id=${id}`;
+
+        video.addEventListener('loadeddata', () => {
+          video.currentTime = 3.0;
+        });
+
+        video.addEventListener('seeked', () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth || 540;
+            canvas.height = video.videoHeight || 960;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+            const imgEl = document.getElementById(`thumb-${id}`);
+            if (imgEl && dataUrl.length > 100) {
+              imgEl.src = dataUrl;
+            }
+          } catch (err) {
+            // Falls back gracefully to high-res Google Drive generated thumbnail
+          }
+        });
+      });
+    }
+    window.addEventListener('DOMContentLoaded', captureThirdSecondFrames);
+
+    // Fluid Water-Like Multi-Layered Cursor Interpolation
+    const orbPrimary = document.getElementById('orbPrimary');
+    const orbSecondary = document.getElementById('orbSecondary');
+    const orbRipple = document.getElementById('orbRipple');
+
+    let targetX = window.innerWidth * 0.5;
+    let targetY = window.innerHeight * 0.35;
+
+    let pX = targetX, pY = targetY;
+    let sX = targetX, sY = targetY;
+    let rX = targetX, rY = targetY;
+    let angle = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+    });
+
+    function animateLiquid() {
+      angle += 0.018;
+
+      // Different fluid viscosities for each orb layer to create a water-like wake
+      pX += (targetX - pX) * 0.065;
+      pY += (targetY - pY) * 0.065;
+
+      sX += (targetX - sX) * 0.028;
+      sY += (targetY - sY) * 0.028;
+
+      rX += (targetX + Math.cos(angle) * 45 - rX) * 0.045;
+      rY += (targetY + Math.sin(angle) * 45 - rY) * 0.045;
+
+      const stretchX = 1 + Math.min(Math.abs(targetX - pX) * 0.0008, 0.22);
+      const stretchY = 1 + Math.min(Math.abs(targetY - pY) * 0.0008, 0.22);
+
+      orbPrimary.style.transform = `translate3d(${pX}px, ${pY}px, 0) scale(${stretchX}, ${stretchY})`;
+      orbSecondary.style.transform = `translate3d(${sX}px, ${sY}px, 0)`;
+      orbRipple.style.transform = `translate3d(${rX}px, ${rY}px, 0) scale(${1 + Math.sin(angle) * 0.08})`;
+
+      requestAnimationFrame(animateLiquid);
+    }
+    requestAnimationFrame(animateLiquid);
+
+    // Bilingual Toggle (Arabic Primary <-> English)
+    let currentLang = 'ar';
+    function toggleLanguage() {
+      currentLang = currentLang === 'ar' ? 'en' : 'ar';
+      const htmlEl = document.documentElement;
+      htmlEl.setAttribute('lang', currentLang);
+      htmlEl.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+
+      document.getElementById('langLabel').textContent = currentLang === 'ar' ? 'English' : 'العربية';
+
+      document.querySelectorAll('[data-ar][data-en]').forEach((el) => {
+        el.innerHTML = el.getAttribute(`data-${currentLang}`);
+      });
+    }
+  </script>
+</body>
+</html>
