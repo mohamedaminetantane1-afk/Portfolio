@@ -2,32 +2,37 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>محمد أمين | مونتير فيديوهات قصيرة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>محمد أمين | مونتير فيديوهات قصيرة احترافي</title>
   <!-- Google Fonts: Cairo for Arabic, Poppins for English & Digits -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-dark: #0d0d0f;
-      --bg-card: #151519;
+      --bg-dark: #09090b;
+      --bg-card: #131317;
+      --bg-card-elevated: #1a1a20;
       --accent: #ea9300;
-      --accent-glow: rgba(234, 147, 0, 0.22);
+      --accent-bright: #ffb32c;
+      --accent-glow: rgba(234, 147, 0, 0.25);
       --text-main: #ffffff;
-      --text-muted: #9ca3af;
+      --text-muted: #a1a1aa;
       --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(234, 147, 0, 0.45);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -37,202 +42,191 @@
       overflow-x: hidden;
       min-height: 100vh;
       position: relative;
+      line-height: 1.6;
     }
 
     html[lang="en"] body {
       font-family: 'Poppins', 'Cairo', sans-serif;
     }
 
-    /* Fluid Water-Like Mouse-Tracking Backdrop / Layer */
+    /* ==========================================================================
+       FIXED RTL & LTR FLUID WATER-LIKE MOUSE & TOUCH BACKDROP
+       Forced direction: ltr & top:0/left:0 so RTL never flips coordinate origin
+       ========================================================================== */
     #liquid-backdrop {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
+      direction: ltr !important;
       pointer-events: none;
       z-index: 0;
       overflow: hidden;
-      filter: blur(65px);
     }
 
-    .liquid-orb {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      will-change: transform;
-      mix-blend-mode: screen;
-    }
-
-    .orb-primary {
-      width: 560px;
-      height: 560px;
-      margin-left: -280px;
-      margin-top: -280px;
-      background: radial-gradient(circle, rgba(234, 147, 0, 0.16) 0%, rgba(234, 147, 0, 0.05) 45%, transparent 72%);
-    }
-
-    .orb-secondary {
-      width: 720px;
-      height: 720px;
-      margin-left: -360px;
-      margin-top: -360px;
-      background: radial-gradient(circle, rgba(234, 147, 0, 0.1) 0%, rgba(255, 180, 50, 0.035) 50%, transparent 75%);
-    }
-
-    .orb-ripple {
-      width: 420px;
-      height: 420px;
-      margin-left: -210px;
-      margin-top: -210px;
-      background: radial-gradient(circle, rgba(255, 195, 80, 0.11) 0%, transparent 68%);
+    #liquid-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     /* Ambient Hero Backlight */
     .ambient-glow {
       position: absolute;
-      top: 90px;
+      top: 50px;
       left: 50%;
       transform: translateX(-50%);
-      width: 540px;
-      height: 420px;
-      background: radial-gradient(circle, rgba(234, 147, 0, 0.13) 0%, transparent 72%);
-      filter: blur(80px);
+      width: 90vw;
+      max-width: 480px;
+      height: 360px;
+      background: radial-gradient(circle, rgba(234, 147, 0, 0.14) 0%, transparent 72%);
+      filter: blur(70px);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Navbar */
+    /* ==========================================================================
+       MOBILE-FIRST NAVBAR
+       ========================================================================== */
     header {
       position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       width: 100%;
       z-index: 100;
-      backdrop-filter: blur(16px);
-      background: rgba(13, 13, 15, 0.75);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      background: rgba(9, 9, 11, 0.82);
       border-bottom: 1px solid var(--border-subtle);
     }
 
     .nav-container {
-      max-width: 1080px;
+      max-width: 1120px;
       margin: 0 auto;
-      padding: 0.85rem 1.5rem;
+      padding: 0.75rem 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 0.5rem;
     }
 
     .brand {
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: -0.5px;
+      font-weight: 900;
+      font-size: 1.05rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.45rem;
       color: var(--text-main);
       text-decoration: none;
+      white-space: nowrap;
     }
 
     .brand-dot {
-      width: 10px;
-      height: 10px;
+      width: 9px;
+      height: 9px;
       background-color: var(--accent);
       border-radius: 50%;
       box-shadow: 0 0 12px var(--accent);
+      flex-shrink: 0;
     }
 
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .lang-btn {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: var(--text-main);
-      padding: 0.45rem 1rem;
+      padding: 0.4rem 0.75rem;
       border-radius: 999px;
       font-family: 'Poppins', 'Cairo', sans-serif;
       font-weight: 600;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       cursor: pointer;
       transition: all 0.25s ease;
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.35rem;
     }
 
     .lang-btn svg {
-      width: 15px;
-      height: 15px;
+      width: 14px;
+      height: 14px;
       stroke: var(--accent);
-      transition: stroke 0.25s ease;
+      flex-shrink: 0;
     }
 
     .lang-btn:hover {
       border-color: var(--accent);
-      background: rgba(234, 147, 0, 0.12);
+      background: rgba(234, 147, 0, 0.14);
     }
 
     .cta-nav {
       background: var(--accent);
       color: #000;
       text-decoration: none;
-      padding: 0.48rem 1.25rem;
+      padding: 0.42rem 0.95rem;
       border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.85rem;
+      font-weight: 800;
+      font-size: 0.8rem;
       transition: all 0.25s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(234, 147, 0, 0.3);
     }
 
     .cta-nav:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(234, 147, 0, 0.38);
+      box-shadow: 0 6px 20px rgba(234, 147, 0, 0.45);
     }
 
-    /* Hero Section */
+    /* ==========================================================================
+       MOBILE-FIRST HERO SECTION
+       ========================================================================== */
     .hero {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6.75rem 1.25rem 3.25rem;
+      padding: 5.5rem 1rem 2.25rem;
       text-align: center;
-      overflow: hidden;
-      max-width: 1020px;
+      max-width: 980px;
       margin: 0 auto;
     }
 
-    /* Circular Avatar Group (Reference 2 Style) */
     .hero-avatar-group {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 1.4rem;
-      z-index: 3;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
     }
 
     .avatar-circle {
       position: relative;
-      width: 116px;
-      height: 116px;
+      width: 102px;
+      height: 102px;
       border-radius: 50%;
-      background: radial-gradient(circle at 50% 30%, #2c2c35 0%, #141418 100%);
-      border: 2px solid rgba(234, 147, 0, 0.6);
-      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.7), 0 0 28px rgba(234, 147, 0, 0.15);
+      background: radial-gradient(circle at 50% 30%, #2a2a35 0%, #121216 100%);
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(234, 147, 0, 0.22);
       overflow: hidden;
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
     }
 
     .avatar-circle:hover {
-      transform: scale(1.04);
-      border-color: var(--accent);
+      transform: translateY(-5px) scale(1.06) rotate(-2deg);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 32px rgba(234, 147, 0, 0.42);
     }
 
     .avatar-circle img {
@@ -241,150 +235,161 @@
       object-fit: cover;
       object-position: top center;
       transform: translateY(4px);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .avatar-circle:hover img {
+      transform: translateY(1px) scale(1.04);
     }
 
     .hero-greeting {
       display: inline-flex;
       align-items: center;
-      gap: 0.55rem;
-      font-size: 0.96rem;
-      font-weight: 700;
+      gap: 0.45rem;
+      font-size: 0.92rem;
+      font-weight: 800;
       color: #ffffff;
-      letter-spacing: 0.2px;
-      padding: 0.35rem 1.05rem;
+      padding: 0.3rem 0.95rem;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-    }
-
-    .hero-role-sub {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.3px;
-      margin-top: -0.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .status-dot-inline {
-      width: 7px;
-      height: 7px;
-      background: var(--accent);
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
       border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent);
-      animation: pulse 2s infinite;
+      box-shadow: 0 0 10px #22c55e;
+      animation: pulseGreen 2s infinite;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(234, 147, 0, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(234, 147, 0, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(234, 147, 0, 0); }
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
-    /* Refined Editorial Hero Headline (Reference 2 Inspired) */
+    .hero-role-sub {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.2px;
+    }
+
     .hero-main-title {
-      font-size: clamp(2.3rem, 5.2vw, 4.1rem);
+      font-size: clamp(1.95rem, 7vw, 3.8rem);
       font-weight: 900;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
+      line-height: 1.22;
       color: var(--accent);
-      margin-bottom: 1.15rem;
-      max-width: 880px;
-      z-index: 3;
+      margin-bottom: 0.85rem;
+      max-width: 850px;
+      text-shadow: 0 10px 30px rgba(234, 147, 0, 0.18);
     }
 
     .hero-sub {
-      max-width: 620px;
-      font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+      max-width: 580px;
+      font-size: 0.95rem;
       color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 2rem;
-      z-index: 3;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      padding: 0 0.25rem;
     }
 
     .hero-sub strong {
       color: #fff;
-      font-weight: 600;
+      font-weight: 700;
     }
 
-    /* Primary & Secondary Hero Action Buttons */
+    /* Mobile-First Hero Buttons */
     .hero-actions {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.95rem;
-      margin-bottom: 2.85rem;
-      z-index: 3;
-      flex-wrap: wrap;
+      flex-direction: column;
+      width: 100%;
+      max-width: 360px;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
     }
 
     .btn-hero-primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 100%);
       color: #000;
-      font-weight: 700;
-      font-size: 0.92rem;
-      padding: 0.8rem 1.9rem;
-      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 14px;
       text-decoration: none;
       transition: all 0.25s ease;
-      box-shadow: 0 8px 24px rgba(234, 147, 0, 0.28);
+      box-shadow: 0 8px 25px rgba(234, 147, 0, 0.32);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .btn-hero-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(234, 147, 0, 0.42);
+      box-shadow: 0 12px 30px rgba(234, 147, 0, 0.48);
     }
 
     .btn-hero-secondary {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       color: #fff;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.92rem;
-      padding: 0.8rem 1.9rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      padding: 0.82rem 1.75rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       text-decoration: none;
       transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-hero-secondary:hover {
       border-color: var(--accent);
       color: var(--accent);
-      transform: translateY(-2px);
     }
 
-    /* Elevated Authority Showcase: Prominent Experience + Authentic Adobe Suite Tiles */
+    /* ==========================================================================
+       AUTHORITY BAR: +2 YEARS & AUTHENTIC ADOBE ICONS (ALIGNED PERFECTLY)
+       ========================================================================== */
     .hero-authority-grid {
-      display: grid;
-      grid-template-columns: auto 1px auto;
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 2.5rem;
-      padding: 1.4rem 2.5rem;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(24, 24, 30, 0.85) 0%, rgba(16, 16, 20, 0.92) 100%);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55);
-      z-index: 3;
+      justify-content: center;
+      gap: 1.15rem;
+      padding: 1.15rem 1.1rem;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(24, 24, 30, 0.9) 0%, rgba(15, 15, 19, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
     }
 
-    /* Prominent Experience Block */
     .exp-showcase {
       display: flex;
       align-items: center;
-      gap: 1.1rem;
-      text-align: start;
+      justify-content: center;
+      gap: 0.9rem;
     }
 
     .exp-number-box {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(2.4rem, 3.8vw, 3.1rem);
+      font-size: 2.4rem;
       font-weight: 900;
       line-height: 1;
       color: #ffffff;
-      letter-spacing: -1.5px;
       direction: ltr;
       display: flex;
       align-items: baseline;
+      background: rgba(234, 147, 0, 0.12);
+      border: 1px solid rgba(234, 147, 0, 0.35);
+      padding: 0.45rem 0.8rem;
+      border-radius: 14px;
     }
 
     .exp-number-box span {
@@ -395,246 +400,267 @@
     .exp-meta {
       display: flex;
       flex-direction: column;
-      gap: 0.18rem;
+      text-align: start;
     }
 
     .exp-title {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       font-weight: 800;
       color: #ffffff;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     .exp-subtitle {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .authority-divider {
-      width: 1px;
-      height: 54px;
-      background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+      width: 85%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
     }
 
-    /* Authentic Adobe Suite Cards */
-    .tools-showcase {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.6rem;
-    }
-
-    .tools-heading {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      font-weight: 700;
-    }
-
+    /* Aligned Adobe Icons Row */
     .adobe-cards-row {
       display: flex;
       align-items: center;
-      gap: 0.9rem;
+      justify-content: center;
+      gap: 0.65rem;
+      width: 100%;
+      flex-wrap: wrap;
     }
 
     .adobe-tool-pill {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      padding: 0.45rem 0.9rem 0.45rem 0.5rem;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      gap: 0.6rem;
+      padding: 0.42rem 0.85rem 0.42rem 0.45rem;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.25s ease;
       direction: ltr;
     }
 
     .adobe-tool-pill:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.055);
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.07);
     }
 
     .adobe-svg-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
       flex-shrink: 0;
       display: block;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
-    }
-
-    .adobe-tool-info {
-      text-align: left;
-      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
 
     .adobe-tool-name {
-      font-size: 0.9rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.84rem;
       font-weight: 700;
       color: #ffffff;
-      line-height: 1;
+      white-space: nowrap;
     }
 
-    /* Dominant Premium Case Study Banner */
-    .case-study-section {
+    /* ==========================================================================
+       CASE STUDY + VISUAL GROWTH GRAPH SECTION (120K VIEWS)
+       ========================================================================== */
+    .section {
       position: relative;
-      z-index: 3;
-      max-width: 980px;
-      margin: 0 auto 3.5rem;
-      padding: 0 1.25rem;
+      z-index: 2;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
     }
 
-    .case-study-banner {
+    .case-study-card {
       position: relative;
-      padding: 2.1rem 2.4rem;
-      border-radius: 24px;
-      background: radial-gradient(circle at top right, rgba(234, 147, 0, 0.2), rgba(21, 21, 25, 0.96) 65%);
-      border: 1.5px solid rgba(234, 147, 0, 0.55);
-      display: grid;
-      grid-template-columns: 1.25fr 1fr;
-      align-items: center;
-      gap: 2rem;
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(234, 147, 0, 0.1);
+      border-radius: 22px;
+      background: radial-gradient(circle at top right, rgba(234, 147, 0, 0.18), rgba(19, 19, 23, 0.96) 70%);
+      border: 1.5px solid var(--border-accent);
+      padding: 1.5rem 1.15rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(234, 147, 0, 0.08);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    .case-study-banner::before {
+    .case-study-card::before {
       content: "";
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       height: 3px;
-      background: var(--accent);
-      box-shadow: 0 0 16px var(--accent);
-    }
-
-    .case-study-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
 
     .case-tag {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      font-size: 0.75rem;
+      align-self: flex-start;
+      gap: 0.4rem;
+      font-size: 0.74rem;
       font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
       color: #000;
       background: var(--accent);
-      padding: 0.3rem 0.85rem;
+      padding: 0.28rem 0.85rem;
       border-radius: 999px;
-      margin-bottom: 0.85rem;
-      box-shadow: 0 4px 14px rgba(234, 147, 0, 0.35);
-    }
-
-    .case-study-text h3 {
-      font-size: clamp(1.35rem, 2.5vw, 1.95rem);
-      font-weight: 900;
-      line-height: 1.25;
       margin-bottom: 0.65rem;
-      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(234, 147, 0, 0.35);
     }
 
-    .case-study-text h3 span {
-      color: var(--accent);
+    .case-study-info h2 {
+      font-size: clamp(1.35rem, 5vw, 2rem);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+      color: #fff;
     }
 
-    .case-study-text p {
-      color: #d1d5db;
-      font-size: 0.94rem;
-      line-height: 1.65;
+    .case-study-info p {
+      color: #d4d4d8;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 1.1rem;
     }
 
-    .case-metrics {
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      gap: 0.9rem;
+    .case-compare-pills {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 0.5rem;
       font-family: 'Poppins', sans-serif;
     }
 
-    .metric-box {
-      flex: 1;
-      background: rgba(10, 10, 13, 0.75);
-      padding: 1.25rem 1rem;
-      border-radius: 18px;
+    .compare-box {
+      background: rgba(9, 9, 11, 0.75);
       border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.75rem 0.5rem;
+      border-radius: 14px;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
-    .metric-box.highlight {
-      background: rgba(234, 147, 0, 0.12);
-      border: 2px solid var(--accent);
-      box-shadow: 0 0 28px rgba(234, 147, 0, 0.22);
-      transform: scale(1.03);
+    .compare-box.after {
+      background: rgba(234, 147, 0, 0.15);
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 0 20px rgba(234, 147, 0, 0.2);
     }
 
-    .metric-val {
-      font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+    .compare-num {
+      font-size: 1.25rem;
       font-weight: 900;
       color: #fff;
       line-height: 1.1;
-      margin-bottom: 0.3rem;
+      direction: ltr;
     }
 
-    .metric-box.highlight .metric-val {
-      color: var(--accent);
+    .compare-box.after .compare-num {
+      color: var(--accent-bright);
     }
 
-    .metric-caption {
-      font-size: 0.74rem;
+    .compare-label {
+      font-family: 'Cairo', 'Poppins', sans-serif;
+      font-size: 0.72rem;
       font-weight: 700;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
+      margin-top: 0.2rem;
     }
 
-    .metric-box.highlight .metric-caption {
-      color: #ffffff;
+    .compare-box.after .compare-label {
+      color: #fff;
     }
 
-    .metric-arrow {
+    .compare-arrow {
+      color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
-      color: var(--accent);
-      font-weight: 900;
-      transition: transform 0.3s ease;
     }
 
-    html[dir="rtl"] .metric-arrow svg {
+    html[dir="rtl"] .compare-arrow svg {
       transform: scaleX(-1);
     }
 
-    /* Portfolio Section */
-    .section {
-      position: relative;
-      z-index: 2;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 1.5rem 1.25rem 3.5rem;
+    /* Interactive SVG Growth Chart Box */
+    .chart-container {
+      background: rgba(9, 9, 11, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
     }
 
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 0.55rem;
+    }
+
+    .chart-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #e4e4e7;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .chart-badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #22c55e;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      direction: ltr;
+    }
+
+    .growth-svg {
+      width: 100%;
+      height: auto;
+      max-height: 190px;
+      overflow: visible;
+      direction: ltr;
+    }
+
+    .chart-line-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 0;
+      animation: drawChart 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes drawChart {
+      from { stroke-dashoffset: 600; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    /* ==========================================================================
+       VIDEO PORTFOLIO GRID (MOBILE-OPTIMIZED 9:16 + ATTRACTIVE VIEWS BADGES)
+       ========================================================================== */
     .section-header {
       text-align: center;
-      margin-bottom: 2.25rem;
+      margin-bottom: 1.65rem;
     }
 
     .section-header h2 {
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-size: clamp(1.5rem, 5.5vw, 2.25rem);
       font-weight: 900;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.3rem;
     }
 
     .section-header h2 span {
@@ -643,37 +669,47 @@
 
     .section-header p {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
     }
 
-    /* 9:16 Video Grid */
+    /* On phones: sleek 2-column or centered 9:16 vertical cards that fit screen ratio */
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-      gap: 1.4rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+    }
+
+    /* Make the #1 top-performing 125K video span full width on small phones or featured */
+    .video-card.featured-vid {
+      grid-column: span 2;
+      max-width: 330px;
+      width: 100%;
+      justify-self: center;
     }
 
     .video-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 18px;
       overflow: hidden;
       transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
+      position: relative;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
     }
 
     .video-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(234, 147, 0, 0.6);
-      box-shadow: 0 16px 35px rgba(234, 147, 0, 0.12);
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 16px 36px rgba(234, 147, 0, 0.16);
     }
 
     .video-frame-container {
       position: relative;
       width: 100%;
       aspect-ratio: 9 / 16;
-      background: #0b0b0e;
+      background: #070709;
       overflow: hidden;
     }
 
@@ -683,7 +719,40 @@
       border: none;
     }
 
-    /* Instant Video Thumbnail Façade */
+    /* Top Floating Attractive Views Pill on Video */
+    .views-floating-badge {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 5;
+      background: rgba(9, 9, 11, 0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid var(--accent);
+      color: #ffffff;
+      padding: 0.28rem 0.65rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.32rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7), 0 0 15px rgba(234, 147, 0, 0.3);
+      pointer-events: none;
+    }
+
+    .views-floating-badge svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .views-floating-badge .views-count {
+      font-family: 'Poppins', 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 0.76rem;
+      color: var(--accent-bright);
+    }
+
     .video-facade {
       position: absolute;
       inset: 0;
@@ -693,7 +762,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: radial-gradient(circle at 50% 35%, rgba(234, 147, 0, 0.16), #09090c 75%);
+      background: radial-gradient(circle at 50% 35%, rgba(234, 147, 0, 0.18), #09090c 75%);
       overflow: hidden;
     }
 
@@ -703,8 +772,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
-      filter: brightness(0.88) contrast(1.04);
+      transition: transform 0.45s ease;
+      filter: brightness(0.9) contrast(1.05);
     }
 
     .video-card:hover .video-thumb-img {
@@ -715,129 +784,376 @@
     .video-thumb-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.82) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.85) 100%);
       pointer-events: none;
     }
 
     .play-btn-circle {
       position: relative;
       z-index: 3;
-      width: 64px;
-      height: 64px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      background: rgba(234, 147, 0, 0.92);
+      background: var(--accent);
       color: #000;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 30px rgba(234, 147, 0, 0.45), 0 0 0 6px rgba(234, 147, 0, 0.16);
-      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 10px 25px rgba(234, 147, 0, 0.5), 0 0 0 5px rgba(234, 147, 0, 0.2);
+      transition: all 0.25s ease;
     }
 
     .video-card:hover .play-btn-circle {
       transform: scale(1.1);
       background: #ffffff;
-      box-shadow: 0 14px 34px rgba(255, 255, 255, 0.35), 0 0 0 8px rgba(234, 147, 0, 0.25);
     }
 
     .play-btn-circle svg {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       fill: currentColor;
-      margin-left: 3px;
-    }
-
-    .thumb-preview-badge {
-      position: absolute;
-      bottom: 0.95rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      background: rgba(13, 13, 15, 0.78);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #e5e7eb;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.3rem 0.85rem;
-      border-radius: 999px;
-      white-space: nowrap;
-      pointer-events: none;
+      margin-left: 2px;
     }
 
     .video-info {
-      padding: 0.95rem 1.15rem;
+      padding: 0.75rem 0.8rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
+      flex-direction: column;
+      gap: 0.35rem;
       border-top: 1px solid var(--border-subtle);
+      background: linear-gradient(180deg, #141419 0%, #101014 100%);
     }
 
     .video-title {
-      font-size: 1.02rem;
-      font-weight: 700;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
     }
 
-    .video-stat {
+    .video-stat-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+    }
+
+    .video-stat-pill {
       font-family: 'Cairo', 'Poppins', sans-serif;
+      color: var(--accent-bright);
+      font-size: 0.76rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .video-stat-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    /* ==========================================================================
+       WHAT I OFFER SECTION (SKILLS SEEN IN YOUR VIDEOS)
+       ========================================================================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: all 0.25s ease;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+      background: var(--bg-card-elevated);
+    }
+
+    .service-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       background: rgba(234, 147, 0, 0.12);
-      color: var(--accent);
       border: 1px solid rgba(234, 147, 0, 0.35);
-      padding: 0.32rem 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .service-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+    }
+
+    .service-content h3 {
+      font-size: 0.96rem;
+      font-weight: 800;
+      margin-bottom: 0.15rem;
+      color: #fff;
+    }
+
+    .service-content p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       HOW THE PROCESS WORKS (48-HOUR TURNAROUND WORKFLOW)
+       ========================================================================== */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      position: relative;
+    }
+
+    .process-card {
+      background: linear-gradient(145deg, #16161c 0%, #111115 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      padding: 1.05rem 0.9rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .process-card:hover {
+      border-color: var(--accent);
+    }
+
+    .step-number-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: #000;
+      background: var(--accent);
+      padding: 0.15rem 0.6rem;
       border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-card h3 {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .process-card p {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .service-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+      background: var(--bg-card-elevated);
+    }
+
+    .service-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(234, 147, 0, 0.12);
+      border: 1px solid rgba(234, 147, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .service-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+    }
+
+    .service-content h3 {
+      font-size: 1.02rem;
+      font-weight: 800;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .service-content p {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       HOW THE PROCESS WORKS (48-HOUR TURNAROUND WORKFLOW)
+       ========================================================================== */
+    .process-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+      position: relative;
+    }
+
+    .process-card {
+      background: linear-gradient(145deg, #16161c 0%, #111115 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .process-card:hover {
+      border-color: var(--accent);
+    }
+
+    .step-number-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: #000;
+      background: var(--accent);
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      margin-bottom: 0.65rem;
+    }
+
+    .process-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .process-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ==========================================================================
+       HIGH-CONVERTING BOOKING SECTION
+       ========================================================================== */
+    .booking-card {
+      background: radial-gradient(circle at 50% 0%, rgba(234, 147, 0, 0.24), #121216 70%);
+      border: 2px solid var(--accent);
+      border-radius: 24px;
+      padding: 2rem 1.2rem;
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(234, 147, 0, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .booking-urgency-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 0.32rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    .booking-card h2 {
+      font-size: clamp(1.5rem, 6vw, 2.35rem);
+      font-weight: 900;
+      line-height: 1.28;
+      margin-bottom: 0.65rem;
+      color: #fff;
+    }
+
+    .booking-card h2 span {
+      color: var(--accent);
+    }
+
+    .booking-card p {
+      color: #d4d4d8;
+      font-size: 0.92rem;
+      margin-bottom: 1.5rem;
+      max-width: 540px;
+      margin-inline: auto;
+      line-height: 1.7;
+    }
+
+    .booking-perks {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .perk-item {
       font-size: 0.78rem;
       font-weight: 700;
-      white-space: nowrap;
+      color: #e4e4e7;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
     }
 
-    /* Contact Section */
-    .contact-card {
-      background: linear-gradient(180deg, #17171c 0%, #101014 100%);
-      border: 1px solid rgba(234, 147, 0, 0.3);
-      border-radius: 24px;
-      padding: 2.75rem 1.75rem;
-      text-align: center;
-      max-width: 820px;
-      margin: 0 auto;
-      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5);
-    }
-
-    .contact-card h2 {
-      font-size: clamp(1.55rem, 3vw, 2.2rem);
-      font-weight: 900;
-      margin-bottom: 0.65rem;
-    }
-
-    .contact-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 1.85rem;
-      max-width: 520px;
-      margin-inline: auto;
+    .perk-item svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--accent);
     }
 
     .contact-grid {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.85rem;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 420px;
+      margin: 0 auto;
     }
 
     .contact-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.65rem;
-      padding: 0.88rem 1.5rem;
-      border-radius: 12px;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.4rem;
+      border-radius: 14px;
       font-family: 'Cairo', 'Poppins', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
+      font-weight: 800;
+      font-size: 0.92rem;
       text-decoration: none;
       transition: all 0.25s ease;
+      width: 100%;
     }
 
     .ltr-num {
@@ -849,98 +1165,147 @@
     }
 
     .contact-btn svg {
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       flex-shrink: 0;
     }
 
     .btn-whatsapp {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent-bright) 0%, var(--accent) 100%);
       color: #000;
+      box-shadow: 0 10px 28px rgba(234, 147, 0, 0.35);
     }
 
     .btn-whatsapp:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(234, 147, 0, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 34px rgba(234, 147, 0, 0.5);
     }
 
     .btn-outline {
       background: rgba(255, 255, 255, 0.05);
       color: #fff;
-      border: 1px solid var(--border-subtle);
+      border: 1px solid rgba(255, 255, 255, 0.14);
     }
 
     .btn-outline:hover {
       border-color: var(--accent);
       color: var(--accent);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
     }
 
     footer {
       text-align: center;
       padding: 2rem 1rem;
       color: var(--text-muted);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       border-top: 1px solid var(--border-subtle);
+      position: relative;
+      z-index: 2;
     }
 
-    @media (max-width: 900px) {
-      .hero {
-        padding-top: 5.75rem;
-      }
-      .hero-authority-grid {
-        grid-template-columns: 1fr;
-        gap: 1.35rem;
-        padding: 1.35rem 1.5rem;
-        text-align: center;
-      }
-      .exp-showcase {
+    /* ==========================================================================
+       TABLET & DESKTOP ENHANCEMENTS (MIN-WIDTH MEDIA QUERIES)
+       ========================================================================== */
+    @media (min-width: 640px) {
+      .hero-actions {
+        flex-direction: row;
+        max-width: none;
         justify-content: center;
       }
-      .authority-divider {
-        width: 100%;
-        height: 1px;
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .tools-showcase {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.65rem;
+
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
       }
-      .adobe-cards-row {
+
+      .video-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      .video-card.featured-vid {
+        grid-column: span 1;
+        max-width: none;
+      }
+
+      .contact-grid {
+        flex-direction: row;
         flex-wrap: wrap;
+        max-width: none;
         justify-content: center;
       }
-      .case-study-banner {
-        grid-template-columns: 1fr;
-        padding: 1.75rem 1.25rem;
-        text-align: center;
+
+      .contact-btn {
+        width: auto;
       }
-      .case-study-text {
+    }
+
+    @media (min-width: 920px) {
+      .nav-container {
+        padding: 0.9rem 1.5rem;
+      }
+
+      .brand {
+        font-size: 1.2rem;
+      }
+
+      .hero {
+        padding: 6.75rem 1.5rem 3rem;
+      }
+
+      .avatar-circle {
+        width: 118px;
+        height: 118px;
+      }
+
+      .hero-authority-grid {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1.25rem 2.25rem;
+        gap: 2rem;
+      }
+
+      .authority-divider {
+        width: 1px;
+        height: 52px;
+        background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+      }
+
+      .adobe-cards-row {
+        width: auto;
+      }
+
+      .case-study-card {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
         align-items: center;
+        padding: 2.25rem 2.5rem;
+        gap: 2.25rem;
       }
-      .case-metrics {
-        flex-direction: column;
-        align-items: center;
+
+      .video-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.15rem;
       }
-      .metric-arrow svg {
-        transform: rotate(90deg) !important;
+
+      .process-steps {
+        grid-template-columns: repeat(4, 1fr);
       }
-      .metric-box {
-        width: 100%;
-      }
-      .metric-box.highlight {
-        transform: none;
+
+      .booking-card {
+        padding: 3rem 2.5rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Smooth Water-Like Multi-Layered Liquid Spotlight -->
+  <!-- Smooth Water-Like Liquid Canvas Backdrop (Works identically in Arabic RTL & English LTR) -->
   <div id="liquid-backdrop">
-    <div class="liquid-orb orb-secondary" id="orbSecondary"></div>
-    <div class="liquid-orb orb-primary" id="orbPrimary"></div>
-    <div class="liquid-orb orb-ripple" id="orbRipple"></div>
+    <canvas id="liquid-canvas"></canvas>
   </div>
   <div class="ambient-glow"></div>
 
@@ -960,14 +1325,13 @@
           </svg>
           <span id="langLabel">English</span>
         </button>
-        <a href="#contact" class="cta-nav" data-ar="تواصل معي" data-en="Hire Me">تواصل معي</a>
+        <a href="#contact" class="cta-nav" data-ar="احجز مقعدك" data-en="Book Now">احجز مقعدك</a>
       </div>
     </div>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <!-- Circular Portrait, Name & Small Subtitle Underneath -->
     <div class="hero-avatar-group">
       <div class="avatar-circle">
         <img src="https://i.imgur.com/OxFA4od.png" alt="Mohamed Amine - Short Form Video Editor" />
@@ -979,25 +1343,21 @@
       <div class="hero-role-sub" data-ar="مونتير فيديو احترافي" data-en="Professional Video Editor">مونتير فيديو احترافي</div>
     </div>
 
-    <!-- Big Orange Main Title Underneath -->
     <h1 class="hero-main-title" data-ar="أحول المقاطع إلى تحف بصرية" data-en="Turning Clips into Masterpieces">
       أحول المقاطع إلى تحف بصرية
     </h1>
 
-    <!-- Concise Value Proposition -->
-    <p class="hero-sub" data-ar="أصنع فيديوهات قصيرة <strong>(Reels, Shorts, TikTok)</strong> بمعايير سينمائية وإيقاع مدروس يرفع معدل الاحتفاظ بالمشاهد ويضاعف الانتشار الطبيعي." data-en="I craft high-retention <strong>Reels, TikToks, and Shorts</strong> with precision pacing, immersive sound design, and visual storytelling built to scale organic reach.">
-      أصنع فيديوهات قصيرة <strong>(Reels, Shorts, TikTok)</strong> بمعايير سينمائية وإيقاع مدروس يرفع معدل الاحتفاظ بالمشاهد ويضاعف الانتشار الطبيعي.
+    <p class="hero-sub" data-ar="مونتاج <strong>Reels, TikTok & Shorts</strong> بموشن جرافيك وإيقاع سريع يضاعف مشاهداتك." data-en="High-retention <strong>Reels, TikToks & Shorts</strong> with motion graphics and fast pacing.">
+      مونتاج <strong>Reels, TikTok & Shorts</strong> بموشن جرافيك وإيقاع سريع يضاعف مشاهداتك.
     </p>
 
-    <!-- Balanced Call-to-Action Buttons -->
     <div class="hero-actions">
-      <a href="#contact" class="btn-hero-primary" data-ar="ابدأ مشروعك الآن" data-en="Let's Talk">ابدأ مشروعك الآن</a>
-      <a href="#work" class="btn-hero-secondary" data-ar="معرض الأعمال" data-en="View Portfolio">معرض الأعمال</a>
+      <a href="#contact" class="btn-hero-primary" data-ar="احجز مونتاجك القادم" data-en="Start Your Project">احجز مونتاجك القادم</a>
+      <a href="#work" class="btn-hero-secondary" data-ar="شاهد أعمالي" data-en="Watch Portfolio">شاهد أعمالي</a>
     </div>
 
-    <!-- Prominent Experience & Authentic Adobe Icons Bar -->
+    <!-- Perfectly Aligned Experience & Official Adobe Premiere / After Effects Icons -->
     <div class="hero-authority-grid">
-      <!-- Highlighted +2 Years Experience -->
       <div class="exp-showcase">
         <div class="exp-number-box"><span>+</span>2</div>
         <div class="exp-meta">
@@ -1008,179 +1368,375 @@
 
       <div class="authority-divider"></div>
 
-      <!-- Authentic Adobe Creative Cloud Badges (Names Only) -->
-      <div class="tools-showcase">
-        <span class="tools-heading" data-ar="البرامج المعتمدة" data-en="Primary Editing Suite">البرامج المعتمدة</span>
-        <div class="adobe-cards-row">
-          <!-- Adobe Premiere Pro SVG Tile -->
-          <div class="adobe-tool-pill">
-            <svg class="adobe-svg-icon" viewBox="0 0 240 234" xmlns="http://www.w3.org/2000/svg">
-              <rect width="240" height="234" rx="42.5" fill="#00005B"/>
-              <rect x="6" y="6" width="228" height="222" rx="37" fill="none" stroke="#9999FF" stroke-opacity="0.35" stroke-width="4"/>
-              <path d="M57 164V66.4c0-1.4.6-2.1 2-2.1 3.5-.2 8.7-.4 15.6-.5 6.9-.2 13.7-.3 20.5-.3 25.9 0 38.8 11.8 38.8 35.4 0 11.4-4 20.3-11.9 26.5-7.9 6.2-18.7 9.3-32.2 9.3-3.9 0-7.4-.1-10.4-.3v29.6c0 1.4-.6 2.1-1.9 2.1H59c-1.3 0-2-.7-2-2.1zm22.4-48.8c3.1.3 6.6.4 10.4.4 13.9 0 20.9-5.9 20.9-17.7 0-11-6.5-16.5-19.5-16.5-4.7 0-8.6.2-11.8.5v33.3zm71.6 48.8v-60c0-6.9-.2-13.2-.6-18.8-.1-1.2.4-1.9 1.6-2h17.9c1.1 0 1.8.6 2.1 1.7.6 2.7 1 5.9 1.2 9.5 3.1-4.1 6.8-7.3 11.1-9.6 4.3-2.3 9.2-3.5 14.7-3.5 1.3 0 2 .7 2 2.1v19.5c0 1.4-.8 2-2.4 1.8-1.8-.2-3.9-.3-6.2-.3-7.8 0-14 2.4-18.6 7.3v52.3c0 1.4-.7 2.1-2 2.1H153c-1.3 0-2-.7-2-2.1z" fill="#9999FF"/>
-            </svg>
-            <div class="adobe-tool-info">
-              <div class="adobe-tool-name">Premiere Pro</div>
-            </div>
-          </div>
+      <div class="adobe-cards-row">
+        <!-- Official Adobe Premiere Pro Tile -->
+        <div class="adobe-tool-pill">
+          <svg class="adobe-svg-icon" viewBox="0 0 240 234" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="234" rx="44" fill="#00005B"/>
+            <rect x="6" y="6" width="228" height="222" rx="38" fill="none" stroke="#9999FF" stroke-opacity="0.4" stroke-width="5"/>
+            <text x="120" y="156" text-anchor="middle" fill="#9999FF" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="112" letter-spacing="-4">Pr</text>
+          </svg>
+          <span class="adobe-tool-name">Premiere Pro</span>
+        </div>
 
-          <!-- Adobe After Effects SVG Tile -->
-          <div class="adobe-tool-pill">
-            <svg class="adobe-svg-icon" viewBox="0 0 240 234" xmlns="http://www.w3.org/2000/svg">
-              <rect width="240" height="234" rx="42.5" fill="#000033"/>
-              <rect x="6" y="6" width="228" height="222" rx="37" fill="none" stroke="#D499FF" stroke-opacity="0.35" stroke-width="4"/>
-              <path d="M62 164l12.8-34.8h40.4L128 164h19.8L108.5 66.4h-17L52 164H62zm21.9-50.6l13.6-37.4h.8l13.6 37.4H83.9zm70.4 50.6V123h32.7v10.5h-21v11h19.7v10.2h-19.7v9.3h21.9V164h-33.6z" fill="#D499FF"/>
-            </svg>
-            <div class="adobe-tool-info">
-              <div class="adobe-tool-name">After Effects</div>
-            </div>
-          </div>
+        <!-- Official Adobe After Effects Tile (Crisp & Accurate) -->
+        <div class="adobe-tool-pill">
+          <svg class="adobe-svg-icon" viewBox="0 0 240 234" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="234" rx="44" fill="#00005B"/>
+            <rect x="6" y="6" width="228" height="222" rx="38" fill="none" stroke="#9999FF" stroke-opacity="0.4" stroke-width="5"/>
+            <text x="120" y="156" text-anchor="middle" fill="#9999FF" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="108" letter-spacing="-5">Ae</text>
+          </svg>
+          <span class="adobe-tool-name">After Effects</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Dominant Case Study Section -->
-  <div class="case-study-section">
-    <div class="case-study-banner">
-      <div class="case-study-text">
-        <span class="case-tag" data-ar="نتائج حقيقية مثبتة" data-en="PROVEN CLIENT RESULTS">نتائج حقيقية مثبتة</span>
-        <h3 data-ar="قفزة نوعية في المشاهدات بنسبة <span style='color:var(--accent);'>1,200%</span>" data-en="Scaled Views By <span style='color:var(--accent);'>1,200%</span>">قفزة نوعية في المشاهدات بنسبة <span style="color:var(--accent);">1,200%</span></h3>
-        <p data-ar="من خلال إعادة هندسة الـ Hook البصري، ضبط الإيقاع، وتصميم الصوت الإبداعي، انتقل أحد عملائي من معدل 5 إلى 10 آلاف مشاهدة ليصل إلى أكثر من 120 ألف مشاهدة للمقطع الواحد." data-en="By re-engineering visual hooks, pacing, and immersive sound design, I scaled a client's baseline from 5K–10K views to breaking 120,000+ organic views.">
-          من خلال إعادة هندسة الـ Hook البصري، ضبط الإيقاع، وتصميم الصوت الإبداعي، انتقل أحد عملائي من معدل 5 إلى 10 آلاف مشاهدة ليصل إلى أكثر من 120 ألف مشاهدة للمقطع الواحد.
+  <!-- Case Study Section with Visual Growth Graph (5K -> 125K Views) -->
+  <section class="section" id="results">
+    <div class="case-study-card">
+      <div class="case-study-info">
+        <span class="case-tag" data-ar="نتيجة حقيقية" data-en="CASE STUDY">نتيجة حقيقية</span>
+        <h2 data-ar="من 5 آلاف إلى <span style='color:var(--accent);'>+125 ألف مشاهدة</span>" data-en="From 5K to <span style='color:var(--accent);'>125K+ Views</span>">
+          من 5 آلاف إلى <span style="color:var(--accent);">+125 ألف مشاهدة</span>
+        </h2>
+        <p data-ar="بإعادة بناء الـ Hook وأسلوب التحريك، قفزنا بمعدل مشاهدات العميل 12 ضعفاً." data-en="By upgrading the 3-second hook, pacing, and motion graphics, we 12X'd the client's views.">
+          بإعادة بناء الـ Hook وأسلوب التحريك، قفزنا بمعدل مشاهدات العميل 12 ضعفاً.
         </p>
+
+        <div class="case-compare-pills">
+          <div class="compare-box">
+            <div class="compare-num">5K – 10K</div>
+            <div class="compare-label" data-ar="سابقاً" data-en="Before">سابقاً</div>
+          </div>
+          <div class="compare-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+          <div class="compare-box after">
+            <div class="compare-num">125,000+</div>
+            <div class="compare-label" data-ar="بعد المونتاج" data-en="After Edit">بعد المونتاج</div>
+          </div>
+        </div>
       </div>
 
-      <div class="case-metrics">
-        <div class="metric-box">
-          <div class="metric-val">5K–10K</div>
-          <div class="metric-caption" data-ar="المشاهدات السابقة" data-en="Before">المشاهدات السابقة</div>
+      <!-- Visual Growth Graph -->
+      <div class="chart-container">
+        <div class="chart-header">
+          <div class="chart-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            <span data-ar="نمو المشاهدات" data-en="Views Growth">نمو المشاهدات</span>
+          </div>
+          <span class="chart-badge">+1,200%</span>
         </div>
-        <div class="metric-arrow">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </div>
-        <div class="metric-box highlight">
-          <div class="metric-val">120K+</div>
-          <div class="metric-caption" data-ar="بعد المونتاج" data-en="After Editing">بعد المونتاج</div>
-        </div>
+
+        <svg class="growth-svg" viewBox="0 0 420 185" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ea9300" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#ea9300" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+          <!-- Horizontal Grid Lines -->
+          <line x1="40" y1="30" x2="400" y2="30" stroke="rgba(255,255,255,0.07)" stroke-dasharray="4 4"/>
+          <line x1="40" y1="85" x2="400" y2="85" stroke="rgba(255,255,255,0.07)" stroke-dasharray="4 4"/>
+          <line x1="40" y1="140" x2="400" y2="140" stroke="rgba(255,255,255,0.12)"/>
+
+          <!-- Y-Axis Labels -->
+          <text x="32" y="34" fill="#9ca3af" font-family="Poppins" font-size="10" text-anchor="end">125K</text>
+          <text x="32" y="89" fill="#9ca3af" font-family="Poppins" font-size="10" text-anchor="end">60K</text>
+          <text x="32" y="143" fill="#9ca3af" font-family="Poppins" font-size="10" text-anchor="end">5K</text>
+
+          <!-- Area Under Curve -->
+          <path d="M 55 138 L 125 134 L 195 136 L 265 95 C 305 65, 340 26, 380 22 L 380 140 L 55 140 Z" fill="url(#areaGrad)"/>
+
+          <!-- Growth Line -->
+          <path class="chart-line-path" d="M 55 138 L 125 134 L 195 136 L 265 95 C 305 65, 340 26, 380 22" fill="none" stroke="#ea9300" stroke-width="3.5" stroke-linecap="round"/>
+
+          <!-- Data Points -->
+          <circle cx="55" cy="138" r="4.5" fill="#52525b" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="125" cy="134" r="4.5" fill="#52525b" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="195" cy="136" r="4.5" fill="#52525b" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="265" cy="95" r="5" fill="#ea9300" stroke="#000" stroke-width="2"/>
+          <circle cx="380" cy="22" r="7" fill="#ffb32c" stroke="#000" stroke-width="2.5"/>
+
+          <!-- Callout Pill on Peak -->
+          <rect x="315" y="2" width="62" height="18" rx="6" fill="#ea9300"/>
+          <text x="346" y="14" fill="#000" font-family="Poppins" font-weight="800" font-size="10" text-anchor="middle">125K+</text>
+
+          <!-- X-Axis Captions -->
+          <text x="55" y="162" fill="#9ca3af" font-family="Poppins" font-size="9.5" text-anchor="middle">Vid 1 (6K)</text>
+          <text x="125" y="162" fill="#9ca3af" font-family="Poppins" font-size="9.5" text-anchor="middle">Vid 2 (9K)</text>
+          <text x="195" y="162" fill="#9ca3af" font-family="Poppins" font-size="9.5" text-anchor="middle">Vid 3 (7K)</text>
+          <text x="370" y="162" fill="#ffb32c" font-family="Poppins" font-weight="700" font-size="10" text-anchor="middle">With My Edit</text>
+        </svg>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Video Portfolio Grid (With 00:03 Frame Thumbnails & Instant Click-to-Play) -->
+  <!-- Video Portfolio Grid (With Attractive Floating Views Badges & 9:16 Mobile Ratio) -->
   <section class="section" id="work">
     <div class="section-header">
-      <h2><span data-ar="نماذج" data-en="Selected">نماذج</span> <span data-ar="الأعمال المختارة" data-en="Works" style="color:#fff;">الأعمال المختارة</span></h2>
-      <p data-ar="اضغط على الصورة المصغرة لأي فيديو لتشغيله فوراً" data-en="Click any video thumbnail below to load and play the edit">اضغط على الصورة المصغرة لأي فيديو لتشغيله فوراً</p>
+      <h2><span data-ar="نماذج" data-en="Selected">نماذج</span> <span data-ar="الأعمال المختارة" data-en="Viral Edits" style="color:#fff;">الأعمال المختارة</span></h2>
+      <p data-ar="اضغط على أي فيديو لتشغيله ومشاهدة جودة التحريك والإيقاع" data-en="Tap any vertical edit below to watch the pacing and motion design">اضغط على أي فيديو لتشغيله ومشاهدة جودة التحريك والإيقاع</p>
     </div>
 
     <div class="video-grid">
-      <!-- Video 1: حرمة الموسيقى (125k views) -->
-      <div class="video-card" data-drive-id="1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL">
+      <!-- Video 1: حرمة الموسيقى (125k views) - Featured on Mobile -->
+      <div class="video-card featured-vid">
         <div class="video-frame-container">
+          <div class="views-floating-badge">
+            <svg viewBox="0 0 24 24"><path d="M12 2c1.5 3.5 4.5 5.5 4.5 9.5 0 2.5-1.8 4.5-4.5 4.5s-4.5-2-4.5-4.5c0-1.5.6-3 1.5-4.2-.3 1.5.8 2.7 2 2.7 1.5 0 2-1.8 1-4-.2-.5-.5-1.2 0-4zM12 22c-4.4 0-8-3.6-8-8 0-3.5 2.2-6.6 5.5-7.7-.4 1.6 0 3.3 1.2 4.4-1.2.8-2 2.2-2 3.8 0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5c0-1.8-1-3.4-2.5-4.1.7-1.2.8-2.6.3-4 2.8 1.3 4.5 4.2 4.5 7.6 0 4.4-3.6 8-8 8z"/></svg>
+            <span class="views-count" data-ar="125,000+ مشاهدة" data-en="125,000+ Views">125,000+ مشاهدة</span>
+          </div>
           <div class="video-facade" onclick="loadDriveVideo(this, '1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL')">
-            <img class="video-thumb-img" id="thumb-1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL" src="https://drive.google.com/thumbnail?id=1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL&sz=w1000" alt="حرمة الموسيقى" loading="lazy" />
+            <img class="video-thumb-img" src="https://drive.google.com/thumbnail?id=1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL&sz=w1000" alt="حرمة الموسيقى" loading="lazy" />
             <div class="video-thumb-overlay"></div>
             <div class="play-btn-circle" aria-label="Play Video">
               <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
             </div>
-            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
           </div>
         </div>
         <div class="video-info">
           <div class="video-title">حرمة الموسيقى</div>
-          <div class="video-stat" data-ar="125 ألف مشاهدة" data-en="125K Views">125 ألف مشاهدة</div>
+          <div class="video-stat-bar">
+            <span class="video-stat-pill">
+              <span class="video-stat-dot"></span>
+              <span data-ar="الأعلى تفاعلاً — 125K" data-en="Top Viral — 125K Views">الأعلى تفاعلاً — 125K</span>
+            </span>
+          </div>
         </div>
       </div>
 
       <!-- Video 2: السب و اللعن (70k+ views) -->
-      <div class="video-card" data-drive-id="1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL">
+      <div class="video-card">
         <div class="video-frame-container">
+          <div class="views-floating-badge">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="views-count" data-ar="+70 ألف مشاهدة" data-en="70,000+ Views">+70 ألف مشاهدة</span>
+          </div>
           <div class="video-facade" onclick="loadDriveVideo(this, '1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL')">
-            <img class="video-thumb-img" id="thumb-1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL" src="https://drive.google.com/thumbnail?id=1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL&sz=w1000" alt="السب و اللعن" loading="lazy" />
+            <img class="video-thumb-img" src="https://drive.google.com/thumbnail?id=1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL&sz=w1000" alt="السب و اللعن" loading="lazy" />
             <div class="video-thumb-overlay"></div>
             <div class="play-btn-circle" aria-label="Play Video">
               <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
             </div>
-            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
           </div>
         </div>
         <div class="video-info">
           <div class="video-title">السب و اللعن</div>
-          <div class="video-stat" data-ar="+70 ألف مشاهدة" data-en="70K+ Views">+70 ألف مشاهدة</div>
+          <div class="video-stat-bar">
+            <span class="video-stat-pill">
+              <span class="video-stat-dot"></span>
+              <span data-ar="+70,000 مشاهدة" data-en="70K+ Organic Views">+70,000 مشاهدة</span>
+            </span>
+          </div>
         </div>
       </div>
 
       <!-- Video 3: المسلسلات (20k+ views) -->
-      <div class="video-card" data-drive-id="1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK">
+      <div class="video-card">
         <div class="video-frame-container">
+          <div class="views-floating-badge">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="views-count" data-ar="+20 ألف مشاهدة" data-en="20,000+ Views">+20 ألف مشاهدة</span>
+          </div>
           <div class="video-facade" onclick="loadDriveVideo(this, '1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK')">
-            <img class="video-thumb-img" id="thumb-1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK" src="https://drive.google.com/thumbnail?id=1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK&sz=w1000" alt="المسلسلات" loading="lazy" />
+            <img class="video-thumb-img" src="https://drive.google.com/thumbnail?id=1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK&sz=w1000" alt="المسلسلات" loading="lazy" />
             <div class="video-thumb-overlay"></div>
             <div class="play-btn-circle" aria-label="Play Video">
               <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
             </div>
-            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
           </div>
         </div>
         <div class="video-info">
           <div class="video-title">المسلسلات</div>
-          <div class="video-stat" data-ar="+20 ألف مشاهدة" data-en="20K+ Views">+20 ألف مشاهدة</div>
+          <div class="video-stat-bar">
+            <span class="video-stat-pill">
+              <span class="video-stat-dot"></span>
+              <span data-ar="+20,000 مشاهدة" data-en="20K+ Organic Views">+20,000 مشاهدة</span>
+            </span>
+          </div>
         </div>
       </div>
 
       <!-- Video 4: اختارك الله (18k views) -->
-      <div class="video-card" data-drive-id="1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp">
+      <div class="video-card">
         <div class="video-frame-container">
+          <div class="views-floating-badge">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="views-count" data-ar="18 ألف مشاهدة" data-en="18,000 Views">18 ألف مشاهدة</span>
+          </div>
           <div class="video-facade" onclick="loadDriveVideo(this, '1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp')">
-            <img class="video-thumb-img" id="thumb-1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp" src="https://drive.google.com/thumbnail?id=1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp&sz=w1000" alt="اختارك الله" loading="lazy" />
+            <img class="video-thumb-img" src="https://drive.google.com/thumbnail?id=1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp&sz=w1000" alt="اختارك الله" loading="lazy" />
             <div class="video-thumb-overlay"></div>
             <div class="play-btn-circle" aria-label="Play Video">
               <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
             </div>
-            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
           </div>
         </div>
         <div class="video-info">
           <div class="video-title">اختارك الله</div>
-          <div class="video-stat" data-ar="18 ألف مشاهدة" data-en="18K Views">18 ألف مشاهدة</div>
+          <div class="video-stat-bar">
+            <span class="video-stat-pill">
+              <span class="video-stat-dot"></span>
+              <span data-ar="18,000 مشاهدة" data-en="18K Organic Views">18,000 مشاهدة</span>
+            </span>
+          </div>
         </div>
       </div>
 
       <!-- Video 5: الدين نقل (17k views) -->
-      <div class="video-card" data-drive-id="1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF">
+      <div class="video-card">
         <div class="video-frame-container">
+          <div class="views-floating-badge">
+            <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span class="views-count" data-ar="17 ألف مشاهدة" data-en="17,000 Views">17 ألف مشاهدة</span>
+          </div>
           <div class="video-facade" onclick="loadDriveVideo(this, '1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF')">
-            <img class="video-thumb-img" id="thumb-1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF" src="https://drive.google.com/thumbnail?id=1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF&sz=w1000" alt="الدين نقل" loading="lazy" />
+            <img class="video-thumb-img" src="https://drive.google.com/thumbnail?id=1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF&sz=w1000" alt="الدين نقل" loading="lazy" />
             <div class="video-thumb-overlay"></div>
             <div class="play-btn-circle" aria-label="Play Video">
               <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
             </div>
-            <span class="thumb-preview-badge" data-ar="اضغط للمشاهدة" data-en="Click to Play">اضغط للمشاهدة</span>
           </div>
         </div>
         <div class="video-info">
           <div class="video-title">الدين نقل</div>
-          <div class="video-stat" data-ar="17 ألف مشاهدة" data-en="17K Views">17 ألف مشاهدة</div>
+          <div class="video-stat-bar">
+            <span class="video-stat-pill">
+              <span class="video-stat-dot"></span>
+              <span data-ar="17,000 مشاهدة" data-en="17K Organic Views">17,000 مشاهدة</span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- What I Offer Section (Motion Graphics, Pacing, SFX, Visual Storytelling) -->
+  <section class="section" id="services">
+    <div class="section-header">
+      <h2><span data-ar="ماذا" data-en="What I">ماذا</span> <span data-ar="أقدم؟" data-en="Offer" style="color:#fff;">أقدم؟</span></h2>
+      <p data-ar="عناصر مدروسة لرفع الاحتفاظ بالمشاهد" data-en="Engineered for maximum viewer retention">عناصر مدروسة لرفع الاحتفاظ بالمشاهد</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        </div>
+        <div class="service-content">
+          <h3 data-ar="موشن جرافيك (After Effects)" data-en="Motion Graphics (After Effects)">موشن جرافيك (After Effects)</h3>
+          <p data-ar="تحويل كلامك إلى مشاهد وأيقونات بصرية متحركة تشد الانتباه." data-en="Visual animations and icons that illustrate your message.">تحويل كلامك إلى مشاهد وأيقونات بصرية متحركة تشد الانتباه.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+        <div class="service-content">
+          <h3 data-ar="إيقاع سريع وHook خاطف" data-en="Fast Pacing & Viral Hooks">إيقاع سريع وHook خاطف</h3>
+          <p data-ar="خطف الانتباه في أول 3 ثوانٍ مع قص كل اللحظات المملة." data-en="Scroll-stopping 3-second hooks with zero dead air.">خطف الانتباه في أول 3 ثوانٍ مع قص كل اللحظات المملة.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+        </div>
+        <div class="service-content">
+          <h3 data-ar="تحريك نصوص ديناميكي" data-en="Dynamic Captions">تحريك نصوص ديناميكي</h3>
+          <p data-ar="نصوص احترافية متزامنة مع نبرة صوتك لرفع وقت المشاهدة." data-en="Word-by-word animated captions synced to your voice.">نصوص احترافية متزامنة مع نبرة صوتك لرفع وقت المشاهدة.</p>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+        </div>
+        <div class="service-content">
+          <h3 data-ar="هندسة ومؤثرات صوتية (SFX)" data-en="Sound Design & SFX">هندسة ومؤثرات صوتية (SFX)</h3>
+          <p data-ar="تنقية الصوت وإضافة مؤثرات عميقة تعطي حياة لكل حركة." data-en="Crisp audio mastering and cinematic sound effects.">تنقية الصوت وإضافة مؤثرات عميقة تعطي حياة لكل حركة.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How the Process Goes (48-Hour Workflow) -->
+  <section class="section" id="process">
+    <div class="section-header">
+      <h2><span data-ar="خطوات" data-en="How It">خطوات</span> <span data-ar="العمل" data-en="Works" style="color:#fff;">العمل</span></h2>
+      <p data-ar="من المقطع الخام إلى فيديو جاهز للنشر خلال 48 ساعة" data-en="From raw clip to viral-ready edit in 48 hours">من المقطع الخام إلى فيديو جاهز للنشر خلال 48 ساعة</p>
+    </div>
+
+    <div class="process-steps">
+      <div class="process-card">
+        <span class="step-number-badge">01</span>
+        <h3 data-ar="فهم أسلوبك" data-en="Align on Vision">فهم أسلوبك</h3>
+        <p data-ar="نحدد هدف الفيديو والأسلوب البصري المناسب لهويتك." data-en="We align on your style and target audience.">نحدد هدف الفيديو والأسلوب البصري المناسب لهويتك.</p>
+      </div>
+
+      <div class="process-card">
+        <span class="step-number-badge">02</span>
+        <h3 data-ar="إرسال المقطع" data-en="Send Raw Clip">إرسال المقطع</h3>
+        <p data-ar="ترسل الفيديو الخام عبر Drive أو واتساب." data-en="Share your raw footage via Drive or WhatsApp.">ترسل الفيديو الخام عبر Drive أو واتساب.</p>
+      </div>
+
+      <div class="process-card">
+        <span class="step-number-badge">03</span>
+        <h3 data-ar="التسليم خلال 48 ساعة" data-en="48h Delivery">التسليم خلال 48 ساعة</h3>
+        <p data-ar="أنجز المونتاج والموشن جرافيك كاملاً خلال يومين." data-en="Full edit and motion graphics delivered in 48h.">أنجز المونتاج والموشن جرافيك كاملاً خلال يومين.</p>
+      </div>
+
+      <div class="process-card">
+        <span class="step-number-badge">04</span>
+        <h3 data-ar="تعديلات مرنة" data-en="Easy Revisions">تعديلات مرنة</h3>
+        <p data-ar="نعدل أي تفصيل فوراً حتى ترضى 100% عن النتيجة." data-en="Fast tweaks until you are 100% satisfied.">نعدل أي تفصيل فوراً حتى ترضى 100% عن النتيجة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- High-Converting Booking Section -->
   <section class="section" id="contact">
-    <div class="contact-card">
-      <h2 data-ar="هل أنت مستعد للارتقاء بجودة محتواك؟" data-en="Ready to Elevate Your Content?">هل أنت مستعد للارتقاء بجودة محتواك؟</h2>
-      <p data-ar="تواصل معي مباشرة لمناقشة تفاصيل مشروعك القادم وصناعة مقاطع تحقق نتائج ملموسة." data-en="Reach out directly via WhatsApp, Instagram, or Email to discuss your next project.">
-        تواصل معي مباشرة لمناقشة تفاصيل مشروعك القادم وصناعة مقاطع تحقق نتائج ملموسة.
+    <div class="booking-card">
+      <div class="booking-urgency-pill">
+        <span class="status-dot-inline"></span>
+        <span data-ar="متاح لاستلام مشاريع هذا الأسبوع" data-en="Available for New Projects">متاح لاستلام مشاريع هذا الأسبوع</span>
+      </div>
+
+      <h2 data-ar="جاهز لتحويل مقاطعك إلى <br><span>فيديوهات تتصدر المشاهدات؟</span>" data-en="Ready to Scale Your Views? <br><span>Let's Edit Your Next Clip!</span>">
+        جاهز لتحويل مقاطعك إلى <br><span>فيديوهات تتصدر المشاهدات؟</span>
+      </h2>
+
+      <p data-ar="أرسل مقطعك الآن على واتساب واستلمه جاهزاً للنشر خلال 48 ساعة." data-en="Send your clip on WhatsApp now and get a viral-ready edit in 48 hours.">
+        أرسل مقطعك الآن على واتساب واستلمه جاهزاً للنشر خلال 48 ساعة.
       </p>
+
+      <div class="booking-perks">
+        <span class="perk-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span data-ar="تسليم 48 ساعة" data-en="48h Turnaround">تسليم 48 ساعة</span>
+        </span>
+        <span class="perk-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span data-ar="تعديلات مرنة" data-en="Flexible Revisions">تعديلات مرنة</span>
+        </span>
+        <span class="perk-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span data-ar="رد فوري" data-en="Fast Reply">رد فوري</span>
+        </span>
+      </div>
 
       <div class="contact-grid">
         <a href="https://wa.me/212675380218" target="_blank" rel="noopener" class="contact-btn btn-whatsapp">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
           </svg>
-          <span data-ar="واتساب: <span class='ltr-num'>+212 675-380218</span>" data-en="WhatsApp: <span class='ltr-num'>+212 675-380218</span>">واتساب: <span class="ltr-num">+212 675-380218</span></span>
+          <span data-ar="احجز عبر واتساب: <span class='ltr-num'>+212 675-380218</span>" data-en="Book via WhatsApp: <span class='ltr-num'>+212 675-380218</span>">احجز عبر واتساب: <span class="ltr-num">+212 675-380218</span></span>
         </a>
         <a href="https://instagram.com/amine.design11" target="_blank" rel="noopener" class="contact-btn btn-outline">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1206,100 +1762,85 @@
   </footer>
 
   <script>
-    // On-Demand Google Drive Video Player Loader (Fast Thumbnail First)
+    // On-Demand Google Drive Video Player Loader
     function loadDriveVideo(facadeEl, fileId) {
       const container = facadeEl.parentElement;
       const iframe = document.createElement('iframe');
       iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
       iframe.allow = 'autoplay; encrypted-media';
       iframe.allowFullscreen = true;
-      container.innerHTML = '';
+      // Remove only the facade, keep the floating views badge visible on top
+      facadeEl.remove();
       container.appendChild(iframe);
     }
 
-    // Attempt to seek to 00:03.00 and capture frame if direct video stream permits CORS
-    function captureThirdSecondFrames() {
-      const driveIds = [
-        '1yYi4ROPFJ8YMYAMgD_6fBzP9iY_JQpDL',
-        '1ENe0vf9mpjiTvDiRQA7tk3bC54_oehJL',
-        '1Hq6ALq-kBz4fh1Aiij0BC_yDYwhcOEeK',
-        '1Tgmguoe69TCSOAIOKEGT93KJaPqb8JIp',
-        '1eF7JL9A4ZZV1WNoYXKUrfDdVQIy8IfFF'
-      ];
+    // =========================================================================
+    // HTML5 CANVAS WATER-LIKE FLUID GRADIENT (IMMUNE TO RTL COORDINATE BUGS)
+    // =========================================================================
+    const canvas = document.getElementById('liquid-canvas');
+    const ctx = canvas.getContext('2d');
 
-      driveIds.forEach((id) => {
-        const video = document.createElement('video');
-        video.crossOrigin = 'anonymous';
-        video.muted = true;
-        video.preload = 'metadata';
-        video.playsInline = true;
-        video.src = `https://drive.google.com/uc?export=download&id=${id}`;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
 
-        video.addEventListener('loadeddata', () => {
-          video.currentTime = 3.0;
-        });
-
-        video.addEventListener('seeked', () => {
-          try {
-            const canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth || 540;
-            canvas.height = video.videoHeight || 960;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-            const imgEl = document.getElementById(`thumb-${id}`);
-            if (imgEl && dataUrl.length > 100) {
-              imgEl.src = dataUrl;
-            }
-          } catch (err) {
-            // Falls back gracefully to high-res Google Drive generated thumbnail
-          }
-        });
-      });
-    }
-    window.addEventListener('DOMContentLoaded', captureThirdSecondFrames);
-
-    // Fluid Water-Like Multi-Layered Cursor Interpolation
-    const orbPrimary = document.getElementById('orbPrimary');
-    const orbSecondary = document.getElementById('orbSecondary');
-    const orbRipple = document.getElementById('orbRipple');
-
-    let targetX = window.innerWidth * 0.5;
-    let targetY = window.innerHeight * 0.35;
-
-    let pX = targetX, pY = targetY;
-    let sX = targetX, sY = targetY;
-    let rX = targetX, rY = targetY;
-    let angle = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
     });
 
-    function animateLiquid() {
-      angle += 0.018;
+    let pointerX = width * 0.5;
+    let pointerY = height * 0.3;
 
-      // Different fluid viscosities for each orb layer to create a water-like wake
-      pX += (targetX - pX) * 0.065;
-      pY += (targetY - pY) * 0.065;
+    // Track both mouse and touch smoothly
+    window.addEventListener('mousemove', (e) => {
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+    }, { passive: true });
 
-      sX += (targetX - sX) * 0.028;
-      sY += (targetY - sY) * 0.028;
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        pointerX = e.touches[0].clientX;
+        pointerY = e.touches[0].clientY;
+      }
+    }, { passive: true });
 
-      rX += (targetX + Math.cos(angle) * 45 - rX) * 0.045;
-      rY += (targetY + Math.sin(angle) * 45 - rY) * 0.045;
+    const orbs = [
+      { x: pointerX, y: pointerY, radius: 290, speed: 0.075, alpha: 0.16, offsetAngle: 0 },
+      { x: pointerX, y: pointerY, radius: 400, speed: 0.035, alpha: 0.10, offsetAngle: 2.1 },
+      { x: pointerX, y: pointerY, radius: 210, speed: 0.052, alpha: 0.12, offsetAngle: 4.2 }
+    ];
 
-      const stretchX = 1 + Math.min(Math.abs(targetX - pX) * 0.0008, 0.22);
-      const stretchY = 1 + Math.min(Math.abs(targetY - pY) * 0.0008, 0.22);
+    let tick = 0;
+    function renderLiquid() {
+      tick += 0.02;
+      ctx.clearRect(0, 0, width, height);
 
-      orbPrimary.style.transform = `translate3d(${pX}px, ${pY}px, 0) scale(${stretchX}, ${stretchY})`;
-      orbSecondary.style.transform = `translate3d(${sX}px, ${sY}px, 0)`;
-      orbRipple.style.transform = `translate3d(${rX}px, ${rY}px, 0) scale(${1 + Math.sin(angle) * 0.08})`;
+      // Gently drift on mobile even when not touching
+      const idleWaveX = Math.cos(tick * 0.8) * 35;
+      const idleWaveY = Math.sin(tick * 0.6) * 25;
 
-      requestAnimationFrame(animateLiquid);
+      orbs.forEach((orb, idx) => {
+        const goalX = pointerX + Math.cos(tick + orb.offsetAngle) * (idx * 35) + idleWaveX;
+        const goalY = pointerY + Math.sin(tick + orb.offsetAngle) * (idx * 35) + idleWaveY;
+
+        orb.x += (goalX - orb.x) * orb.speed;
+        orb.y += (goalY - orb.y) * orb.speed;
+
+        const dynamicRadius = orb.radius + Math.sin(tick * 1.3 + idx) * 22;
+        const grad = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, dynamicRadius);
+        grad.addColorStop(0, `rgba(234, 147, 0, ${orb.alpha})`);
+        grad.addColorStop(0.5, `rgba(255, 165, 20, ${orb.alpha * 0.45})`);
+        grad.addColorStop(1, 'rgba(234, 147, 0, 0)');
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(orb.x, orb.y, dynamicRadius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      requestAnimationFrame(renderLiquid);
     }
-    requestAnimationFrame(animateLiquid);
+    requestAnimationFrame(renderLiquid);
 
     // Bilingual Toggle (Arabic Primary <-> English)
     let currentLang = 'ar';
