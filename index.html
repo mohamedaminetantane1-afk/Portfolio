@@ -1400,21 +1400,6 @@
         padding: 3rem 2.5rem;
       }
     }
-
-    /* ==========================================================================
-       SCROLL REVEAL ANIMATION (OPACITY & SLIGHT FLOAT UP)
-       ========================================================================== */
-    .reveal-scroll {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: opacity 0.85s cubic-bezier(0.25, 1, 0.5, 1), transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
-      will-change: opacity, transform;
-    }
-
-    .reveal-scroll.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
   </style>
 </head>
 <body>
@@ -2020,30 +2005,6 @@
         el.innerHTML = el.getAttribute(`data-${currentLang}`);
       });
     }
-
-    // =========================================================================
-    // SCROLL REVEAL OBSERVER LOGIC
-    // =========================================================================
-    document.addEventListener("DOMContentLoaded", () => {
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target); // Only animate once when revealed
-          }
-        });
-      }, { 
-        root: null, 
-        rootMargin: '100px', 
-        threshold: 0.05 // Triggers much earlier when only 5% of the section is visible
-      });
-
-      // Target the Hero, all standard sections, and the footer
-      document.querySelectorAll('.hero, .section, footer').forEach((el) => {
-        el.classList.add('reveal-scroll');
-        revealObserver.observe(el);
-      });
-    });
   </script>
 </body>
 </html>
